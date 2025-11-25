@@ -26,11 +26,13 @@ def buscar_item(lista, nomeBuscar):
 
 
 def adicionar_item(lista, palavra):
+    
     if palavra in lista:
         print("Esse item ja existe")
     else:
         lista.append(palavra)
         print("Item adicionado")
+        salvar(lista)
 
 
 def editar_item(lista):
@@ -40,8 +42,14 @@ def editar_item(lista):
     novoOpition = str(input("Qual o novo item deseja adicionar: "))
     antigo = lista[option - 1]
     lista[option - 1] = novoOpition
+    salvar(lista)
     print(f"O item editado: '{antigo}' -> '{novoOpition}'")
-    return
+
+
+def remover_item(remover, lista):
+    print(f"Item '{lista[remover-1]}' removido da lista")
+    lista.pop(remover-1)
+    return salvar(lista)
 
 
 lista = carregar()
@@ -59,17 +67,20 @@ while True:
     option = int(input("Escolha uma opção: "))
 
     if option == 1:
-        palavra = str(input("Adicionar: "))
+        palavra = str(input("Adicionar: ")).lower()
         adicionar_item(lista, palavra=palavra)
 
     elif option == 2:
+        for num, item in enumerate(lista):
+            print(f"{num+1} - {item}")
+
         escolha = int(input("Em qual posiçao esta o item que quer remover? "))
-        lista.pop(escolha-1)
+        remover_item(escolha, lista)
 
     elif option == 3:
         for num, item in enumerate(lista):
             print(f"{num+1} - {item}")
-        sleep(3)
+        sleep(2)
     elif option == 4:
         lista = carregar()
         print("Lista Carregada!")
@@ -80,8 +91,6 @@ while True:
         editar_item(lista)
     elif option == 0:
         print("Salvando")
-        # verificacao_lista(lista)
-        salvar(lista)
         sleep(2)
         print("Saindo")
         sleep(1)
