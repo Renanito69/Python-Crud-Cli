@@ -1,5 +1,6 @@
 from time import sleep
 import os
+import colorama as color
 
 
 def salvar(lista):
@@ -26,13 +27,14 @@ def buscar_item(lista, nomeBuscar):
 
 
 def adicionar_item(lista, palavra):
-    
+
     if palavra in lista:
         print("Esse item ja existe")
     else:
         lista.append(palavra)
-        print("Item adicionado")
+        print(color.Fore.GREEN + "Item adicionado")
         salvar(lista)
+        sleep(1)
 
 
 def editar_item(lista):
@@ -43,15 +45,21 @@ def editar_item(lista):
     antigo = lista[option - 1]
     lista[option - 1] = novoOpition
     salvar(lista)
-    print(f"O item editado: '{antigo}' -> '{novoOpition}'")
+    print(f"O item editado:", color.Fore.YELLOW +
+          f"'{antigo}'", "->", color.Fore.GREEN + f"'{novoOpition}'")
+    sleep(1)
 
 
-def remover_item(remover, lista):
-    print(f"Item '{lista[remover-1]}' removido da lista")
-    lista.pop(remover-1)
+def remover_item(lista, remover_item):
+    print(f"Item ", color.Fore.YELLOW +
+          f"'{lista[remover_item-1]}'", "removido da lista")
+    lista.pop(remover_item-1)
+    print(color.Fore.RED + "Item Removido")
+    sleep(0.8)
     return salvar(lista)
 
 
+color.init(autoreset=True)
 lista = carregar()
 
 while True:
@@ -75,7 +83,7 @@ while True:
             print(f"{num+1} - {item}")
 
         escolha = int(input("Em qual posiçao esta o item que quer remover? "))
-        remover_item(escolha, lista)
+        remover_item(lista, escolha)
 
     elif option == 3:
         for num, item in enumerate(lista):
@@ -83,15 +91,17 @@ while True:
         sleep(2)
     elif option == 4:
         lista = carregar()
-        print("Lista Carregada!")
+        print(color.Fore.GREEN + "Lista Carregada!")
+        sleep(0.7)
     elif option == 5:
         nome_Busca = str(input("Buscar: "))
         buscar_item(lista, nome_Busca)
     elif option == 6:
         editar_item(lista)
+
     elif option == 0:
-        print("Salvando")
+        print(color.Fore.GREEN + "Salvando")
         sleep(2)
-        print("Saindo")
+        print(color.Fore.RED + "Saindo")
         sleep(1)
         break
