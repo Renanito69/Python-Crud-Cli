@@ -3,6 +3,10 @@ import os
 import colorama as color
 
 
+def limpar():
+    os.system('cls')
+
+
 def salvar(lista):
     with open("lista.txt", "w") as arquivo:
         for item in lista:
@@ -59,32 +63,46 @@ def remover_item(lista, remover_item):
     return salvar(lista)
 
 
-color.init(autoreset=True)
-lista = carregar()
-
-while True:
+def exibindo_menu():
     print('''
-    0 - Sair e Salvar
-    1 - Adicionar item
-    2 - Remover item
-    3 - Listar item
-    4 - Recarregar lista
-    5 - Buscar item
-    6 - Editar a lista''')
+░██████╗░███████╗██████╗░███████╗███╗░░██╗░█████╗░██╗░█████╗░██████╗░░█████╗░██████╗░
+██╔════╝░██╔════╝██╔══██╗██╔════╝████╗░██║██╔══██╗██║██╔══██╗██╔══██╗██╔══██╗██╔══██╗
+██║░░██╗░█████╗░░██████╔╝█████╗░░██╔██╗██║██║░░╚═╝██║███████║██║░░██║██║░░██║██████╔╝
+██║░░╚██╗██╔══╝░░██╔══██╗██╔══╝░░██║╚████║██║░░██╗██║██╔══██║██║░░██║██║░░██║██╔══██╗
+╚██████╔╝███████╗██║░░██║███████╗██║░╚███║╚█████╔╝██║██║░░██║██████╔╝╚█████╔╝██║░░██║
+░╚═════╝░╚══════╝╚═╝░░╚═╝╚══════╝╚═╝░░╚══╝░╚════╝░╚═╝╚═╝░░╚═╝╚═════╝░░╚════╝░╚═╝░░╚═╝
 
+░█████╗░██████╗░██╗░░░██╗██████╗░
+██╔══██╗██╔══██╗██║░░░██║██╔══██╗
+██║░░╚═╝██████╔╝██║░░░██║██║░░██║
+██║░░██╗██╔══██╗██║░░░██║██║░░██║
+╚█████╔╝██║░░██║╚██████╔╝██████╔╝
+░╚════╝░╚═╝░░╚═╝░╚═════╝░╚═════╝░
+''')
+
+
+def exibir_escolhas():
+    print("0 - Sair e Salvar")
+    print("1 - Adicionar item")
+    print("2 - Remover item")
+    print("3 - Listar item")
+    print("4 - Recarregar lista")
+    print("5 - Buscar item")
+    print("6 - Editar a lista")
+
+
+def escolher_opcao(lista):
     option = int(input("Escolha uma opção: "))
-
     if option == 1:
-        palavra = str(input("Adicionar: ")).lower()
+        print("Adicionar:", end='')
+        palavra = str(input(color.Fore.YELLOW + " ")).lower()
         adicionar_item(lista, palavra=palavra)
-
     elif option == 2:
         for num, item in enumerate(lista):
             print(f"{num+1} - {item}")
 
         escolha = int(input("Em qual posiçao esta o item que quer remover? "))
         remover_item(lista, escolha)
-
     elif option == 3:
         for num, item in enumerate(lista):
             print(f"{num+1} - {item}")
@@ -98,10 +116,27 @@ while True:
         buscar_item(lista, nome_Busca)
     elif option == 6:
         editar_item(lista)
-
     elif option == 0:
         print(color.Fore.GREEN + "Salvando")
         sleep(2)
         print(color.Fore.RED + "Saindo")
         sleep(1)
-        break
+        return lista, True
+    return lista, False
+
+
+def main(lista):
+    color.init(autoreset=True)
+
+    exibindo_menu()
+    exibir_escolhas()
+    return escolher_opcao(lista)
+
+
+# Programa principal
+if __name__ == '__main__':
+    lista = carregar()
+    while True:
+        lista, sair = main(lista)
+        if sair:
+            break
