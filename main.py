@@ -4,7 +4,7 @@ import colorama as color
 
 
 def limpar():
-    os.system('cls')
+    return os.system('cls')
 
 
 def salvar(lista):
@@ -91,41 +91,64 @@ def exibir_escolhas():
     print("6 - Editar a lista")
 
 
-def escolher_opcao(lista):
-    option = int(input("Escolha uma opção: "))
-    if option == 1:
-        print("Adicionar:", end='')
-        palavra = str(input(color.Fore.YELLOW + " ")).lower()
-        adicionar_item(lista, palavra=palavra)
-    elif option == 2:
-        for num, item in enumerate(lista):
-            print(f"{num+1} - {item}")
-
-        escolha = int(input("Em qual posiçao esta o item que quer remover? "))
-        remover_item(lista, escolha)
-    elif option == 3:
-        for num, item in enumerate(lista):
-            print(f"{num+1} - {item}")
-        sleep(2)
-    elif option == 4:
-        lista = carregar()
-        print(color.Fore.GREEN + "Lista Carregada!")
-        sleep(0.7)
-    elif option == 5:
-        nome_Busca = str(input("Buscar: "))
-        buscar_item(lista, nome_Busca)
-    elif option == 6:
-        editar_item(lista)
-    elif option == 0:
-        print(color.Fore.GREEN + "Salvando")
-        sleep(2)
-        print(color.Fore.RED + "Saindo")
-        sleep(1)
-        return lista, True
+def opcao_invalida(lista):
+    print(color.Fore.RED + "Opção invalida\n")
+    input("Digite um tecla para voltar para o menu principal: ")
+    main(lista)
     return lista, False
 
 
+def escolher_opcao(lista):
+    try:
+        option = int(input("Escolha uma opção: "))
+
+        if option == 1:
+            limpar()
+            print("Adicionar:", end='')
+            palavra = str(input(color.Fore.YELLOW + " ")).lower()
+            adicionar_item(lista, palavra=palavra)
+        elif option == 2:
+
+            for num, item in enumerate(lista):
+                print(f"{num+1} - {item}")
+
+            escolha = int(
+                input("Em qual posiçao esta o item que quer remover? "))
+            remover_item(lista, escolha)
+
+        elif option == 3:
+            for num, item in enumerate(lista):
+                print(f"{num+1} - {item}")
+            input("Digite um tecla para voltar para o menu principal: ")
+            sleep(0.5)
+
+        elif option == 4:
+            lista = carregar()
+            print(color.Fore.GREEN + "Lista Carregada!")
+            sleep(0.7)
+
+        elif option == 5:
+            nome_Busca = str(input("Buscar: "))
+            buscar_item(lista, nome_Busca)
+
+        elif option == 6:
+            editar_item(lista)
+
+        elif option == 0:
+            print(color.Fore.GREEN + "Salvando")
+            sleep(2)
+            print(color.Fore.RED + "Saindo")
+            sleep(1)
+            return lista, True
+        else:
+            opcao_invalida(lista)
+        return lista, False
+    except:
+        return opcao_invalida(lista)
+
+
 def main(lista):
+    limpar()
     color.init(autoreset=True)
 
     exibindo_menu()
@@ -139,4 +162,5 @@ if __name__ == '__main__':
     while True:
         lista, sair = main(lista)
         if sair:
+            limpar()
             break
