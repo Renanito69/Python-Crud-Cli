@@ -1,4 +1,4 @@
-🚀 Python CRUD CLI — Agenda de Compras no Terminal
+ #Python CRUD CLI — Agenda de Compras no Terminal (Desafio 24)
 
 Um projeto simples e funcional em Python, utilizando listas, dicionários, funções,
 looping principal, e limpeza do terminal, para criar uma agenda de contatos via CLI.
