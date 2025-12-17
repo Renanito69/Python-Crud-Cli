@@ -1,4 +1,4 @@
-🚀 Python CRUD CLI — Agenda de Contatos no Terminal
+🚀 Python CRUD CLI — Agenda de Compras no Terminal
 
 Um projeto simples e funcional em Python, utilizando listas, dicionários, funções,
 looping principal, e limpeza do terminal, para criar uma agenda de contatos via CLI.
@@ -8,13 +8,13 @@ e interação com o usuário no terminal.
 
 📌 Funcionalidades
 
-✔ Adicionar contatos
+✔ Adicionar produto
 
-✔ Listar contatos
+✔ Listar produto
 
-✔ Buscar contatos por nome
+✔ Buscar produto por nome
 
-✔ Remover contatos
+✔ Remover produto
 
 ✔ Interface limpa com ASCII Art
 
